@@ -21,8 +21,10 @@ jobs:
         with:
           channel: 'stable'
           
-      - name: Create App
-        run: flutter create --project-name wefriends .
+      - name: Create Base Project
+        run: |
+          flutter create --project-name wefriends .
+          git checkout HEAD -- lib/main.dart 2>/dev/null || true
         
       - name: Build Android APK
         run: flutter build apk --debug
@@ -30,5 +32,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: WeFriends-APK
+          name: WeFriends-App
           path: build/app/outputs/flutter-apk/app-debug.apk
